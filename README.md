@@ -1,4 +1,4 @@
-# LAST LIGHT PROTOCOL
+# AI Tech Companies are Selling Our Future for a Profit
 
 A self-contained pixel-art browser game. Press the red button to trigger a fictionalized data-center target sequence across a bleak U.S. map.
 
