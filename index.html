@@ -31,20 +31,27 @@
       .screen::before, .screen::after { content: ""; position: absolute; left: 0; width: 100%; height: 2px; pointer-events: none; z-index: 2; background: rgba(210, 220, 200, .05); }
       .screen::before { top: 28%; } .screen::after { top: 68%; }
       canvas { display: block; width: 100%; height: auto; min-height: 320px; background: #121615; }
-      .panel { display: grid; place-items: center; margin-top: 20px; }
-      .action-wrap { position: relative; display: grid; place-items: center; min-width: 220px; min-height: 170px; }
+      .panel { display: grid; place-items: center; gap: 12px; margin-top: 20px; }
+      .action-wrap { position: relative; display: grid; place-items: center; min-width: 220px; min-height: 220px; overflow: visible; }
       #fireButton {
-        position: relative; z-index: 2; width: 146px; height: 146px; border: 7px solid #ff7765; border-radius: 50%; color: #fff2d8; background: #bc231e;
-        font-size: 1rem; font-weight: bold; letter-spacing: .04em; text-shadow: 2px 2px 0 #681411; box-shadow: 0 9px 0 #631614, 0 14px 0 #050606, inset 0 5px 0 #f25b4b; cursor: pointer;
+        position: relative; z-index: 2; width: 146px; height: 146px; border: 7px solid #ff7765; border-radius: 50%; color: transparent; background: #bc231e;
+        box-shadow: 0 9px 0 #631614, 0 14px 0 #050606, inset 0 5px 0 #f25b4b; cursor: pointer;
       }
       #fireButton:hover { background: #d12a22; } #fireButton:active, #fireButton.pressed { transform: translateY(8px); box-shadow: 0 1px 0 #631614, 0 6px 0 #050606, inset 0 3px 0 #f25b4b; }
       #fireButton:focus-visible { outline: 3px solid #f0c04e; outline-offset: 5px; }
-      #finger { position: absolute; z-index: 4; width: 64px; height: 118px; opacity: 0; pointer-events: none; transform: translate(8px, -118px); transition: none; }
-      #finger::before { content: ""; position: absolute; top: 0; left: 20px; width: 34px; height: 92px; border: 4px solid #401f17; border-radius: 18px 18px 10px 10px; background: #d68d6b; box-shadow: inset -8px 0 #b86650; }
-      #finger::after { content: ""; position: absolute; top: 4px; left: 25px; width: 22px; height: 22px; border-radius: 14px 14px 5px 5px; background: #e5b48b; }
-      #finger.strike { animation: finger-strike .63s steps(5, end); }
-      @keyframes finger-strike { 0% { opacity: 0; transform: translate(8px,-118px); } 13% { opacity: 1; } 55% { opacity: 1; transform: translate(8px,20px); } 75% { opacity: 1; transform: translate(8px,12px); } 100% { opacity: 0; transform: translate(8px,-118px); } }
-      @media (max-width: 680px) { .panel { grid-template-columns: 1fr; gap: 8px; } .action-wrap { min-height: 150px; } canvas { min-height: 250px; } }
+      #finger { position: absolute; z-index: 4; top: -250px; left: calc(50% - 64px); width: 128px; height: 350px; opacity: 0; pointer-events: none; transform: translateY(-320px); transition: none; }
+      #finger::before { content: ""; position: absolute; top: 0; left: 28px; width: 72px; height: 278px; border: 5px solid #401f17; border-radius: 28px 28px 18px 18px; background: #ca795d; box-shadow: inset -17px 0 #9e543f, inset 10px 0 #e4a27a; }
+      #finger::after { content: ""; position: absolute; top: 236px; left: 43px; width: 43px; height: 116px; border: 5px solid #401f17; border-radius: 20px 20px 14px 14px; background: #d88c69; box-shadow: inset -10px 0 #ad614a, inset 0 13px #e7b28a; }
+      #finger.strike { animation: finger-strike .9s steps(7, end); }
+      @keyframes finger-strike { 0% { opacity: 0; transform: translateY(-320px); } 12% { opacity: 1; } 56% { opacity: 1; transform: translateY(96px); } 72% { opacity: 1; transform: translateY(84px); } 100% { opacity: 0; transform: translateY(-320px); } }
+      #resetButton { border: 2px solid #8d9890; padding: 8px 13px; color: #d8ded0; background: #171b19; font-size: .7rem; letter-spacing: .13em; cursor: pointer; }
+      #resetButton:hover { border-color: #f0c04e; color: #f0e2c4; } #resetButton:focus-visible { outline: 3px solid #f0c04e; outline-offset: 3px; }
+      #splash { position: absolute; z-index: 8; inset: 0; display: grid; place-items: center; padding: 22px; opacity: 0; pointer-events: none; background: rgba(18, 14, 10, 0); transition: opacity .1s linear; }
+      #splash.show { opacity: 1; background: rgba(18, 14, 10, .88); animation: splash-out 1.9s ease-out forwards; }
+      #splash p { position: relative; max-width: 92%; color: #eee1c9; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 7vw, 5.4rem); font-style: italic; font-weight: 400; letter-spacing: .015em; line-height: .94; text-align: center; text-shadow: 3px 4px 0 #7e3027, -1px -1px 0 #342018; transform: rotate(-2deg); }
+      #splash p::before, #splash p::after { content: ""; position: absolute; top: 50%; width: 20%; height: 2px; background: #d89167; } #splash p::before { right: calc(100% + 18px); } #splash p::after { left: calc(100% + 18px); }
+      @keyframes splash-out { 0%, 55% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.04); } }
+      @media (max-width: 680px) { .panel { grid-template-columns: 1fr; gap: 8px; } .action-wrap { min-height: 190px; } canvas { min-height: 250px; } #splash p { font-size: 2rem; } }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
     </style>
   </head>
@@ -59,13 +66,15 @@
 
       <section class="screen" aria-label="Pixel-art map of the United States with data center targets">
         <canvas id="map" width="1100" height="570" role="img" aria-label="Bleak United States map showing AI company data-center targets"></canvas>
+        <div id="splash" aria-live="assertive" aria-atomic="true"><p>populus perseverabit</p></div>
       </section>
 
       <section class="panel" aria-label="Launch controls">
         <div class="action-wrap">
           <div id="finger" aria-hidden="true"></div>
-          <button id="fireButton" type="button" aria-label="Activate simulation and disable the next data center target">PRESS<br>TO<br>LAUNCH</button>
+          <button id="fireButton" type="button" aria-label="Activate simulation and disable the next data center target"></button>
         </div>
+        <button id="resetButton" type="button">RESET MAP</button>
       </section>
     </main>
     <script>
@@ -74,7 +83,11 @@
         const ctx = canvas.getContext('2d');
         const button = document.getElementById('fireButton');
         const finger = document.getElementById('finger');
+        const resetButton = document.getElementById('resetButton');
+        const splash = document.getElementById('splash');
         const W = canvas.width, H = canvas.height;
+        const usaMap = new Image();
+        usaMap.src = 'assets/us-map-v1.png';
         const targets = [
           { name: 'AMAZON', x: 173, y: 168, lx: 145, ly: 138, align: 'right' },
           { name: 'META', x: 207, y: 295, lx: 130, ly: 300, align: 'right' },
@@ -85,28 +98,14 @@
           { name: 'GOOGLE DEEPMIND', x: 788, y: 241, lx: 780, ly: 198, align: 'right' },
           { name: 'ANTHROPIC', x: 872, y: 319, lx: 911, ly: 351, align: 'left' }
         ].map((target, id) => ({ ...target, id, state: 'active', blast: 0, bomb: null }));
-        let lastTime = 0;
+        let lastTime = 0, splashTimer;
 
         function pixelRect(x, y, w, h, color) { ctx.fillStyle = color; ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
         function drawBackground(t) {
           pixelRect(0, 0, W, H, '#121615');
           for (let y = 0; y < H; y += 8) pixelRect(0, y, W, 1, 'rgba(167,183,150,.035)');
           for (let i = 0; i < 78; i++) { const x = (i * 199) % W, y = (i * 109) % H; pixelRect(x, y, 2, 2, '#3d453d'); }
-          ctx.fillStyle = '#1d231f';
-          ctx.fillRect(51, 477, 277, 36); // Alaska
-          ctx.fillRect(357, 486, 48, 24); // Hawaii block
-          ctx.strokeStyle = '#3c463d'; ctx.lineWidth = 2;
-          ctx.setLineDash([9, 7]); ctx.strokeRect(43, 466, 301, 63); ctx.strokeRect(348, 475, 70, 45); ctx.setLineDash([]);
-          pixelRect(61, 483, 9, 5, '#6e795e'); pixelRect(373, 492, 6, 4, '#6e795e'); pixelRect(389, 500, 6, 4, '#6e795e');
-          ctx.fillStyle = '#1b211d';
-          ctx.beginPath();
-          ctx.moveTo(137, 126); ctx.lineTo(165, 101); ctx.lineTo(194, 110); ctx.lineTo(210, 131); ctx.lineTo(255, 145); ctx.lineTo(312, 150); ctx.lineTo(364, 144); ctx.lineTo(410, 151); ctx.lineTo(454, 143); ctx.lineTo(496, 151); ctx.lineTo(540, 142); ctx.lineTo(581, 155); ctx.lineTo(621, 147); ctx.lineTo(663, 156); ctx.lineTo(704, 149); ctx.lineTo(742, 162); ctx.lineTo(771, 155); ctx.lineTo(797, 145); ctx.lineTo(824, 161); ctx.lineTo(850, 152); ctx.lineTo(872, 172); ctx.lineTo(904, 180); ctx.lineTo(925, 198); ctx.lineTo(955, 206); ctx.lineTo(968, 225); ctx.lineTo(949, 240); ctx.lineTo(958, 257); ctx.lineTo(941, 272); ctx.lineTo(945, 293); ctx.lineTo(924, 309); ctx.lineTo(912, 337); ctx.lineTo(891, 348); ctx.lineTo(886, 376); ctx.lineTo(870, 393); ctx.lineTo(880, 410); ctx.lineTo(877, 438); ctx.lineTo(860, 460); ctx.lineTo(842, 466); ctx.lineTo(826, 451); ctx.lineTo(824, 430); ctx.lineTo(811, 415); ctx.lineTo(794, 407); ctx.lineTo(779, 386); ctx.lineTo(755, 381); ctx.lineTo(738, 404); ctx.lineTo(713, 430); ctx.lineTo(673, 431); ctx.lineTo(648, 415); ctx.lineTo(620, 409); ctx.lineTo(594, 418); ctx.lineTo(573, 410); ctx.lineTo(551, 402); ctx.lineTo(528, 405); ctx.lineTo(504, 388); ctx.lineTo(484, 397); ctx.lineTo(462, 375); ctx.lineTo(426, 383); ctx.lineTo(403, 368); ctx.lineTo(365, 372); ctx.lineTo(340, 358); ctx.lineTo(311, 362); ctx.lineTo(290, 348); ctx.lineTo(268, 344); ctx.lineTo(256, 329); ctx.lineTo(245, 302); ctx.lineTo(223, 281); ctx.lineTo(211, 252); ctx.lineTo(201, 224); ctx.lineTo(180, 202); ctx.lineTo(186, 180); ctx.lineTo(163, 164); ctx.lineTo(170, 145); ctx.closePath(); ctx.fill();
-          ctx.strokeStyle = '#879283'; ctx.lineWidth = 4; ctx.stroke();
-          ctx.strokeStyle = '#38443a'; ctx.lineWidth = 2;
-          [[206,132,211,252],[260,145,260,340],[316,150,317,360],[370,145,370,372],[426,150,428,381],[483,145,484,396],[541,145,542,404],[596,151,595,416],[653,151,651,428],[711,151,710,429],[764,158,759,383],[817,158,812,414],[870,172,861,390],[180,202,949,240],[201,252,942,290],[223,281,923,329],[256,329,893,365],[340,358,781,385]].forEach(line => { ctx.beginPath(); ctx.moveTo(line[0],line[1]); ctx.lineTo(line[2],line[3]); ctx.stroke(); });
-          ctx.fillStyle = '#121615';
-          [[720,152,48,13],[765,167,25,47],[794,158,35,16],[833,168,22,18]].forEach(lake => { ctx.beginPath(); ctx.roundRect(lake[0], lake[1], lake[2], lake[3], 6); ctx.fill(); });
-          ctx.strokeStyle = '#566558'; ctx.lineWidth = 1; [[720,152,48,13],[765,167,25,47],[794,158,35,16],[833,168,22,18]].forEach(lake => ctx.strokeRect(lake[0], lake[1], lake[2], lake[3]));
+          if (usaMap.complete && usaMap.naturalWidth) ctx.drawImage(usaMap, 40, 30, 1020, 490);
         }
         function drawTarget(target, t) {
           const pulse = Math.floor(t / 180) % 2;
@@ -142,11 +141,18 @@
           ctx.fillStyle = `rgba(255,235,166,${Math.max(0,1-p*1.7)})`; ctx.beginPath(); ctx.arc(target.x, target.y, Math.max(2, r*.48), 0, Math.PI*2); ctx.fill();
           for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4 + .12; pixelRect(target.x + Math.cos(a) * r * 1.3 - 3, target.y + Math.sin(a) * r * 1.3 - 3, 7, 7, '#df4a2f'); }
         }
+        function showSplash() {
+          clearTimeout(splashTimer);
+          splash.classList.remove('show');
+          void splash.offsetWidth;
+          splash.classList.add('show');
+          splashTimer = setTimeout(() => splash.classList.remove('show'), 1930);
+        }
         function draw(t) {
           const dt = Math.min(34, t - lastTime || 16); lastTime = t;
           drawBackground(t);
           targets.forEach(target => {
-            if (target.bomb) { target.bomb.y += dt * .26; drawBomb(target.bomb); if (target.bomb.y >= target.y) { target.bomb = null; target.state = 'destroyed'; target.blast = .01; } }
+            if (target.bomb) { target.bomb.y += dt * .26; drawBomb(target.bomb); if (target.bomb.y >= target.y) { target.bomb = null; target.state = 'destroyed'; target.blast = .01; showSplash(); } }
             drawTarget(target, t);
             if (target.blast > 0) { drawBlast(target); target.blast += dt / 800; if (target.blast > 1) target.blast = 0; }
           });
@@ -165,12 +171,18 @@
         }
         function launch() {
           const target = targets.find(item => item.state === 'active');
-          if (!target) { button.disabled = true; button.textContent = 'GRID\nEMPTY'; button.style.filter = 'grayscale(1)'; return; }
+          if (!target) { button.disabled = true; button.style.filter = 'grayscale(1)'; return; }
           button.disabled = true; finger.classList.remove('strike'); void finger.offsetWidth; finger.classList.add('strike'); button.classList.add('pressed');
           setTimeout(() => { target.bomb = { x: target.x, y: 50 }; sound('fall'); }, 260);
           setTimeout(() => { sound('boom'); button.disabled = false; button.classList.remove('pressed'); }, 1160);
         }
+        function resetMap() {
+          targets.forEach(target => { target.state = 'active'; target.blast = 0; target.bomb = null; });
+          clearTimeout(splashTimer); splash.classList.remove('show');
+          button.disabled = false; button.style.filter = '';
+        }
         button.addEventListener('click', launch);
+        resetButton.addEventListener('click', resetMap);
         requestAnimationFrame(draw);
       })();
     </script>
